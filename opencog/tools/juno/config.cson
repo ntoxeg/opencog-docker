@@ -1,0 +1,18 @@
+"*":
+  "autocomplete-plus":
+    confirmCompletion: "tab always, enter when suggestion explicitly selected"
+  core:
+    telemetryConsent: "limited"
+  editor:
+    scrollPastEnd: true
+  "exception-reporting":
+    userId: "c3fccaf1-be8a-4594-99f9-e155ef09927a"
+  "julia-client":
+    firstBoot: false
+    uiOptions:
+      enableMenu: true
+      enableToolBar: true
+  "tool-bar":
+    position: "Left"
+  welcome:
+    showOnStartup: false
