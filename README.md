@@ -51,6 +51,7 @@ they are not in active use.
       ├─opencog/cogutil:latest
         ├─opencog/opencog-dev:cli (for a dev environment)
         ├─opencog/opencog-dev:ide
+        ├─opencog/opencog-dev:juno
         ├─opencog/moses
 
     ├─opencog/relex
@@ -79,6 +80,8 @@ they are not in active use.
 
 * `opencog/opencog-dev:ide`: To be used for developing using ides. QtCreator
    is installed.
+
+* `opencog/opencog-dev:juno`: JunoLab IDE with Julia and Python environments installed.
 
 * `opencog/moses`: It has moses and R installed. R is installed for those
    who want to use the R binding for moses. The binding is not yet

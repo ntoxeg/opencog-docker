@@ -1,12 +1,3 @@
-# Follow the instruction below for easy setup of environment
-#
-# Usage: Follow the steps in the README file in the directory containing this file
-# 1. docker-compose -f opencog-ide.yml  build (run this when there is a dependency change)
-# 2. docker-compose -f opencog-ide.yml run --service-ports dev
-# 3. Check http://wiki.opencog.org/w/Using_QT_Creator on how to use qtcreator.
-
-# Note: You can use your mouse to switch between tmux windows/panes
-
 dev:
     build: tools/juno
     ports: # syntax is host:container
@@ -14,12 +5,20 @@ dev:
         - "17001:17001"
         - "18001:18001"
         - "8080:8080"
-    working_dir: /opencog # This is the same as the volume mount point below
+    working_dir: /projects # This is the same as the volume mount point below
     volumes:
         - $OPENCOG_SOURCE_DIR:/opencog
+        - $ATOMSPACE_SOURCE_DIR:/atomspace
+        - $COGUTIL_SOURCE_DIR:/cogutil
+        - $RELEX_SOURCE_DIR:/relex
         - $HOME/.gitconfig:/home/opencog/.gitconfig
         - /tmp/.X11-unix/:/tmp/.X11-unix/:ro # For GUI
+        - $HOME/projects:/projects
     environment: # Set environment variables within the container
         - PYTHONPATH=/opencog/build/opencog/cython:/opencog/opencog/python/:/opencog/opencog/nlp/
         - OPENCOG_SOURCE_DIR=/opencog
+        - ATOMSPACE_SOURCE_DIR=/atomspace
+        - COGUTIL_SOURCE_DIR=/cogutil
+        - RELEX_SOURCE_DIR=/relex
         - DISPLAY=:0 # For GUI assuming a single monitor setup. This should be set on run.
+        - PROJECTS_DIR=/projects
