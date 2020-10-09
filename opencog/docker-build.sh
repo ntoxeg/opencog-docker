@@ -223,8 +223,5 @@ if [ $BUILD_JUPYTER_IMAGE ]; then
     echo "---- Finished build of ${DOCKER_NAME}/opencog-jupyter ----"
 fi
 
-if [ $UNKNOWN_FLAGS ]; then
-    usage
-    exit 1
-fi
-if [ $NO_ARGS ]; then usage; fi
+if [ $UNKNOWN_FLAGS ] ; then usage; exit 1 ; fi
+if [ $NO_ARGS ] ; then usage ; fi

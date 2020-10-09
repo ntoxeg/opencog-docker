@@ -1,16 +1,8 @@
 # Step to take
-# 1. docker build --no-cache -t synthillect/cogutil
-# 2. docker run --rm -it synthillect/cogutil
+# 1. docker build --no-cache -t singnet/cogutil
+# 2. docker run --rm -it singnet/cogutil
 
-FROM synthillect/opencog-deps
-
-# Install repositories and dependencies
-# FIXME: when octools auto-updates remove this.
-ARG OCPKG_URL=https://raw.githubusercontent.com/singnet/ocpkg/master/ocpkg
-ADD ${OCPKG_URL} /tmp/octool
-ARG GITHUB_NAME="singnet"
-ENV GITHUB_NAME ${GITHUB_NAME}
-RUN chmod 755 /tmp/octool
+FROM singnet/opencog-deps
 
 # Install cogutil
 RUN  /tmp/octool -c ; ccache -C
