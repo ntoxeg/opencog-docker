@@ -12,7 +12,7 @@
 # containing some data. Instead of $PWD you could use abslute path like
 # $HOME/path/to/data/
 
-FROM singnet/cogutil
+FROM synthillect/cogutil
 
 # Install R
 RUN apt-get -y install r-base

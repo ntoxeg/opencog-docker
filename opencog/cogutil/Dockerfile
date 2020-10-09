@@ -1,8 +1,8 @@
 # Step to take
-# 1. docker build --no-cache -t singnet/cogutil
-# 2. docker run --rm -it singnet/cogutil
+# 1. docker build --no-cache -t synthillect/cogutil
+# 2. docker run --rm -it synthillect/cogutil
 
-FROM singnet/opencog-deps
+FROM synthillect/opencog-deps
 
 # Install cogutil
 RUN  /tmp/octool -c ; ccache -C
