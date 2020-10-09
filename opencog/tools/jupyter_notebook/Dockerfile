@@ -13,15 +13,15 @@ RUN python3 -m pip install jupyterlab ipykernel tornado
 # Install guile-json as it is needed for guile-kernel
 WORKDIR /opt/
 
-RUN wget https://download.savannah.gnu.org/releases/guile-json/guile-json-0.6.0.tar.gz && \
-    tar xvf guile-json-0.6.0.tar.gz && \
-    rm guile-json-0.6.0.tar.gz && \
-    cd guile-json-0.6.0 && \
-    ./configure && \
+RUN wget https://download.savannah.gnu.org/releases/guile-json/guile-json-3.2.0.tar.gz && \
+    tar xvf guile-json-3.2.0.tar.gz && \
+    rm guile-json-3.2.0.tar.gz && \
+    cd guile-json-3.2.0 && \
+    ./configure --prefix=/usr && \
     make install
 # Why does it install in the wrong directory?
 # RUN mkdir -p /usr/local/share/guile/site/2.2/
-RUN mv /usr/local/share/guile/site/json* /usr/share/guile/site/2.2/
+# RUN mv /usr/local/share/guile/site/json* /usr/share/guile/site/2.2/
 
 # ZMQ library to enable communication with jupyter notebook
 RUN wget https://raw.githubusercontent.com/jerry40/guile-simple-zmq/master/src/simple-zmq.scm -O /usr/share/guile/site/2.2/simple-zmq.scm
@@ -29,10 +29,11 @@ RUN wget https://raw.githubusercontent.com/jerry40/guile-simple-zmq/master/src/s
 # Create a directory with the guile kernel in jupyter notebook kernels directory
 WORKDIR /usr/local/share/jupyter/kernels
 
-RUN git clone --depth 1 https://github.com/jerry40/guile-kernel
+RUN git clone --depth 1 https://github.com/jerry40/guile-kernel guile
 # Copy kernel description to the above folder
-COPY kernel.json /usr/local/share/jupyter/kernels/guile-kernel
+COPY kernel.json /usr/local/share/jupyter/kernels/guile/
 
+RUN groupadd -r jupyter_users && gpasswd -a opencog jupyter_users
 EXPOSE 8888
 USER opencog
 CMD [ "jupyter", "lab", "--ip=0.0.0.0", "--port=8888", "--no-browser" ]
