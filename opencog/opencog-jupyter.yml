@@ -2,8 +2,8 @@
 #
 version: '3'
 services:
-  notes:
-    image: singularitynet/jupyter:latest
+  jupyter:
+    image: synthillect/opencog-jupyter:latest
     ports: 
         - "17001:17001"
         - "18001:18001"
