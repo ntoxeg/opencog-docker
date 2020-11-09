@@ -14,13 +14,11 @@ RUN apt-get -y install apt-transport-https software-properties-common sudo \
       wget tzdata
 
 # Install repositories and dependencies
-ARG OCPKG_URL=https://raw.githubusercontent.com/singnet/ocpkg/master/ocpkg
-ADD ${OCPKG_URL} /tmp/octool
-ARG LINKGRAMMAR_URL=https://www.abisource.com/downloads/link-grammar/5.8.0/link-grammar-5.8.0.tar.gz
-ADD ${LINKGRAMMAR_URL} /tmp/
-RUN apt-get install -y tzdata
 ARG GITHUB_NAME="singnet"
 ENV GITHUB_NAME ${GITHUB_NAME}
+ARG OCPKG_URL=https://raw.githubusercontent.com/${GITHUB_NAME}/ocpkg/master/ocpkg
+ADD ${OCPKG_URL} /tmp/octool
+RUN apt-get install -y tzdata
 RUN chmod 755 /tmp/octool;  sync; /tmp/octool -rdpv -l default
 
 # Environment Variables
