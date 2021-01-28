@@ -65,14 +65,14 @@ usage() {
        tools, cogutil, cogserver, and the buildbot images.
     -c Builds ${DOCKER_NAME}/cogutil image. It will build ${DOCKER_NAME}/opencog-deps
        if it hasn't been built, as it forms its base image.
-    -e Builds ${DOCKER_NAME}/inecraft image. It will build all needed images if they
+    -e Builds ${DOCKER_NAME}/minecraft image. It will build all needed images if they
        haven't already been built.
     -j Builds ${DOCKER_NAME}/opencog-jupyter image. It will add jupyter notebook to
-    ${DOCKER_NAME}/opencog-dev:cli
+    ${DOCKER_NAME}/opencog-dev
     -m Builds ${DOCKER_NAME}/moses image.
     -p Builds ${DOCKER_NAME}/postgres image.
     -r Builds ${DOCKER_NAME}/relex image.
-    -t Builds ${DOCKER_NAME}/opencog-dev:cli image. It will build
+    -t Builds ${DOCKER_NAME}/opencog-dev image. It will build
     ${DOCKER_NAME}/opencog-deps
        and ${DOCKER_NAME}/cogutil if they haven't been built, as they form its base
        images.
@@ -126,18 +126,18 @@ check_cogutil() {
 }
 
 # -----------------------------------------------------------------------------
-## Build ${DOCKER_NAME}/opencog-dev:cli image.
+## Build ${DOCKER_NAME}/opencog-dev image.
 build_dev_cli() {
     check_cogutil
-    echo "---- Starting build of ${DOCKER_NAME}/opencog-dev:cli ----"
+    echo "---- Starting build of ${DOCKER_NAME}/opencog-dev ----"
     GITHUB_OPTION="--build-arg GITHUB_NAME=$GITHUB_NAME"
-    docker build $CACHE_OPTION $GITHUB_OPTION -t ${DOCKER_NAME}/opencog-dev:cli tools/cli
-    echo "---- Finished build of ${DOCKER_NAME}/opencog-dev:cli ----"
+    docker build $CACHE_OPTION $GITHUB_OPTION -t ${DOCKER_NAME}/opencog-dev tools/cli
+    echo "---- Finished build of ${DOCKER_NAME}/opencog-dev ----"
 }
 
-## If the ${DOCKER_NAME}/opencog-dev:cli image hasn't been built yet then build it.
+## If the ${DOCKER_NAME}/opencog-dev image hasn't been built yet then build it.
 check_dev_cli() {
-    if [ -z "$(docker images ${DOCKER_NAME}/opencog-dev:cli | grep -i opencog-dev)" ]; then
+    if [ -z "$(docker images ${DOCKER_NAME}/opencog-dev | grep -i opencog-dev)" ]; then
         build_dev_cli
     fi
 }
@@ -148,7 +148,7 @@ pull_dev_images() {
     echo "---- Starting pull of opencog development images ----"
     docker pull ${DOCKER_NAME}/opencog-deps
     docker pull ${DOCKER_NAME}/cogutil
-    docker pull ${DOCKER_NAME}/opencog-dev:cli
+    docker pull ${DOCKER_NAME}/opencog-dev
     docker pull ${DOCKER_NAME}/postgres
     docker pull ${DOCKER_NAME}/relex
     echo "---- Finished pull of opencog development images ----"

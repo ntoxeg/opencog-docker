@@ -13,7 +13,7 @@ services:
     volumes:
       - $OPENCOG_SOURCE_DIR:/opencog
       - $HOME/.gitconfig:/home/opencog/.gitconfig
-      - /tmp/.X11-unix/:/tmp/.X11-unix/:ro # For GUI
+      # - /tmp/.X11-unix/:/tmp/.X11-unix/:ro # For GUI
       - $OPENCOG_NOTEBOOKS:/opencog/notebooks
     environment: # Set environment variables within the container
       - PYTHONPATH=/opencog/build/opencog/cython:/opencog/opencog/python/:/opencog/opencog/nlp/
