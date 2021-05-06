@@ -48,11 +48,11 @@ done
 shift "$(($OPTIND - 1))"
 DOCKER_NAME=$1
 if [[ -z $DOCKER_NAME ]]; then
-    DOCKER_NAME="singularitynet"
+    DOCKER_NAME="opencog"
 fi
 GITHUB_NAME=$2
 if [[ -z $GITHUB_NAME ]]; then
-    GITHUB_NAME="singnet"
+    GITHUB_NAME="opencog"
 fi
 
 # Functions

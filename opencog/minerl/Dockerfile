@@ -103,7 +103,6 @@ WORKDIR /home/opencog
 
 # newer psutil is needed for minerl
 RUN sudo apt-get -y remove python3-psutil
-# TODO: decide whether to use MineRL
 RUN sudo pip3 install gym minerl
 
 ADD startup.sh /home/opencog
