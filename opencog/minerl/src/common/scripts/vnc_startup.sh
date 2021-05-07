@@ -90,19 +90,25 @@ PID_SUB=$!
 
 echo -e "\n------------------ start VNC server ------------------------"
 echo "remove old vnc locks to be a reattachable container"
-vncserver -kill $DISPLAY &> $STARTUPDIR/vnc_startup.log \
-    || rm -rfv /tmp/.X*-lock /tmp/.X11-unix &> $STARTUPDIR/vnc_startup.log \
+rm -rfv /tmp/.X*-lock /tmp/.X11-unix &> $STARTUPDIR/vnc_startup.log \
     || echo "no locks present"
 
-echo -e "start vncserver with param: VNC_COL_DEPTH=$VNC_COL_DEPTH, VNC_RESOLUTION=$VNC_RESOLUTION\n..."
-if [[ $DEBUG == true ]]; then echo "vncserver $DISPLAY -depth $VNC_COL_DEPTH -geometry $VNC_RESOLUTION"; fi
-vncserver $DISPLAY -depth $VNC_COL_DEPTH -geometry $VNC_RESOLUTION &> $STARTUPDIR/no_vnc_startup.log
-echo -e "start window manager\n..."
-$HOME/wm_startup.sh &> $STARTUPDIR/wm_startup.log
+CONFIG_PATH=$HOME/.vnc/config
+echo "geometry=$VNC_RESOLUTION" > $CONFIG_PATH
+echo "depth=$VNC_COL_DEPTH" >> $CONFIG_PATH
+echo "session=xfce" >> $CONFIG_PATH
+
+echo -e "start vncserver with param: VNC_COL_DEPTH=$VNC_COL_DEPTH, VNC_RESOLUTION=$VNC_RESOLUTION...\n"
+if [[ $DEBUG == true ]]; then echo "sudo -E vncsession opencog $DISPLAY"; fi
+sudo -E vncsession opencog $DISPLAY &> $STARTUPDIR/vnc_startup.log
+# disable screensaver
+sleep 1
+xset s noblank &
+xset s off &
 
 ## log connect options
 echo -e "\n\n------------------ VNC environment started ------------------"
-echo -e "\nVNCSERVER started on DISPLAY= $DISPLAY \n\t=> connect via VNC viewer with $VNC_IP:$VNC_PORT"
+echo -e "\nVNCSERVER started on DISPLAY=$DISPLAY \n\t=> connect via VNC viewer with $VNC_IP:$VNC_PORT"
 echo -e "\nnoVNC HTML client started:\n\t=> connect via http://$VNC_IP:$NO_VNC_PORT/?password=...\n"
 
 
